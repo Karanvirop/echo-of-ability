@@ -3,24 +3,43 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { AccessibilityProvider } from "./contexts/AccessibilityContext";
+import { Navigation } from "./components/Navigation";
+import { AccessibilityToolbar } from "./components/AccessibilityToolbar";
+import Home from "./pages/Home";
+import Assistant from "./pages/Assistant";
+import UseCases from "./pages/UseCases";
+import Guide from "./pages/Guide";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <AccessibilityProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <a href="#main-content" className="skip-to-main">
+            Skip to main content
+          </a>
+          <Navigation />
+          <AccessibilityToolbar />
+          <main id="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/assistant" element={<Assistant />} />
+              <Route path="/use-cases" element={<UseCases />} />
+              <Route path="/guide" element={<Guide />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AccessibilityProvider>
   </QueryClientProvider>
 );
 
