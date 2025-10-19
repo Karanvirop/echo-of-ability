@@ -19,11 +19,11 @@ export const AccessibilityToolbar = () => {
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            size="lg"
+            size="sm"
             className="shadow-lg"
             aria-label="Open accessibility settings"
           >
-            <Settings className="h-5 w-5" />
+            <Settings className="h-4 w-4" />
             <span className="ml-2">Accessibility</span>
           </Button>
         </PopoverTrigger>
